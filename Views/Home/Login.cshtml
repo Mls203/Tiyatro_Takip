@@ -1,0 +1,95 @@
+﻿@model Tiyatro_Takip.Models.UserProfile
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.6.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            background-image: url('../../content/image/tiyatro-sahnesi.jpg');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .orta {
+            margin-top: 15px;
+            background: #333;
+        }
+
+        .orta-sol {
+            float: left;
+            width: 180px;
+        }
+
+
+        .orta-sag {
+            float: left;
+            margin: 15px;
+            width: 400px;
+            color: #bbb;
+        }
+
+
+        #giris {
+            width: 320px;
+            height: 252px;
+            background-color: #e5a635;
+            margin-top: 250px;
+            margin-left: 550px;
+        }
+    </style>
+
+
+
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        <div id="giris" class="image-div-content,orta-sag">
+            <h4 style="text-align:center; padding-top:10px;"><b>Giriş Yapınız</b> </h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" style="margin:20px">
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-6"})
+                <div class="col-md-10" style="margin:3px">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "İmadettin" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="margin:20px">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-10" style="margin:3px">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "123456" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="margin:10px">
+                <div class="col-md-offset-2 col-md-10" style="margin:10px">
+                    <input type="submit" value="Giriş" class="btn btn-default" />
+                </div>
+            </div>
+
+        </div>
+
+
+    }
+</body>
+</html>

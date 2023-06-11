@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TiyatroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Sahne_Turu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sahne_türü" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tiyatro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategoriId" Type="int" Nullable="false" />
+          <Property Name="tiyatro_konu" Type="int" Nullable="false" />
+          <Property Name="sahne_turu" Type="int" Nullable="false" />
+          <Property Name="aciklama" Type="varchar(max)" Nullable="false" />
+          <Property Name="fiyat" Type="money" Nullable="false" />
+          <Property Name="tiyatro_adi" Type="nvarchar" MaxLength="150" />
+          <Property Name="seans_saati" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tiyatro_kategori">
+          <Key>
+            <PropertyRef Name="kategoriId" />
+          </Key>
+          <Property Name="kategoriId" Type="int" Nullable="false" />
+          <Property Name="kategoriAdi" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tiyatro_Konusu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategoriId" Type="int" Nullable="false" />
+          <Property Name="konu" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uyeler">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="int" Nullable="false" />
+          <Property Name="UyeAdi" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="UyeSoyadi" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="UyeTc" Type="nchar" MaxLength="150" Nullable="false" />
+          <Property Name="UyeTel" Type="nchar" MaxLength="150" Nullable="false" />
+          <Property Name="UyeAdres" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tiyatro_Konusu_tiyatro_kategori">
+          <End Role="tiyatro_kategori" Type="Self.tiyatro_kategori" Multiplicity="1" />
+          <End Role="Tiyatro_Konusu" Type="Self.Tiyatro_Konusu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiyatro_kategori">
+              <PropertyRef Name="kategoriId" />
+            </Principal>
+            <Dependent Role="Tiyatro_Konusu">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tiyatro_Sahne_Turu">
+          <End Role="Sahne_Turu" Type="Self.Sahne_Turu" Multiplicity="1" />
+          <End Role="Tiyatro" Type="Self.Tiyatro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sahne_Turu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tiyatro">
+              <PropertyRef Name="sahne_turu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tiyatro_tiyatro_kategori">
+          <End Role="tiyatro_kategori" Type="Self.tiyatro_kategori" Multiplicity="1" />
+          <End Role="Tiyatro" Type="Self.Tiyatro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiyatro_kategori">
+              <PropertyRef Name="kategoriId" />
+            </Principal>
+            <Dependent Role="Tiyatro">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tiyatro_Tiyatro_Konusu">
+          <End Role="Tiyatro_Konusu" Type="Self.Tiyatro_Konusu" Multiplicity="1" />
+          <End Role="Tiyatro" Type="Self.Tiyatro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tiyatro_Konusu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tiyatro">
+              <PropertyRef Name="tiyatro_konu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TiyatroModelStoreContainer">
+          <EntitySet Name="Sahne_Turu" EntityType="Self.Sahne_Turu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tiyatro" EntityType="Self.Tiyatro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tiyatro_kategori" EntityType="Self.tiyatro_kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tiyatro_Konusu" EntityType="Self.Tiyatro_Konusu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uyeler" EntityType="Self.Uyeler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tiyatro_Konusu_tiyatro_kategori" Association="Self.FK_Tiyatro_Konusu_tiyatro_kategori">
+            <End Role="tiyatro_kategori" EntitySet="tiyatro_kategori" />
+            <End Role="Tiyatro_Konusu" EntitySet="Tiyatro_Konusu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tiyatro_Sahne_Turu" Association="Self.FK_Tiyatro_Sahne_Turu">
+            <End Role="Sahne_Turu" EntitySet="Sahne_Turu" />
+            <End Role="Tiyatro" EntitySet="Tiyatro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tiyatro_tiyatro_kategori" Association="Self.FK_Tiyatro_tiyatro_kategori">
+            <End Role="tiyatro_kategori" EntitySet="tiyatro_kategori" />
+            <End Role="Tiyatro" EntitySet="Tiyatro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tiyatro_Tiyatro_Konusu" Association="Self.FK_Tiyatro_Tiyatro_Konusu">
+            <End Role="Tiyatro_Konusu" EntitySet="Tiyatro_Konusu" />
+            <End Role="Tiyatro" EntitySet="Tiyatro" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TiyatroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Sahne_Turu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sahne_türü" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tiyatro" Relationship="Self.FK_Tiyatro_Sahne_Turu" FromRole="Sahne_Turu" ToRole="Tiyatro" />
+        </EntityType>
+        <EntityType Name="Tiyatro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriId" Type="Int32" Nullable="false" />
+          <Property Name="tiyatro_konu" Type="Int32" Nullable="false" />
+          <Property Name="sahne_turu" Type="Int32" Nullable="false" />
+          <Property Name="aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fiyat" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="tiyatro_adi" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="seans_saati" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sahne_Turu1" Relationship="Self.FK_Tiyatro_Sahne_Turu" FromRole="Tiyatro" ToRole="Sahne_Turu" />
+          <NavigationProperty Name="tiyatro_kategori" Relationship="Self.FK_Tiyatro_tiyatro_kategori" FromRole="Tiyatro" ToRole="tiyatro_kategori" />
+          <NavigationProperty Name="Tiyatro_Konusu" Relationship="Self.FK_Tiyatro_Tiyatro_Konusu" FromRole="Tiyatro" ToRole="Tiyatro_Konusu" />
+        </EntityType>
+        <EntityType Name="tiyatro_kategori">
+          <Key>
+            <PropertyRef Name="kategoriId" />
+          </Key>
+          <Property Name="kategoriId" Type="Int32" Nullable="false" />
+          <Property Name="kategoriAdi" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tiyatro" Relationship="Self.FK_Tiyatro_tiyatro_kategori" FromRole="tiyatro_kategori" ToRole="Tiyatro" />
+          <NavigationProperty Name="Tiyatro_Konusu" Relationship="Self.FK_Tiyatro_Konusu_tiyatro_kategori" FromRole="tiyatro_kategori" ToRole="Tiyatro_Konusu" />
+        </EntityType>
+        <EntityType Name="Tiyatro_Konusu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriId" Type="Int32" Nullable="false" />
+          <Property Name="konu" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tiyatro" Relationship="Self.FK_Tiyatro_Tiyatro_Konusu" FromRole="Tiyatro_Konusu" ToRole="Tiyatro" />
+          <NavigationProperty Name="tiyatro_kategori" Relationship="Self.FK_Tiyatro_Konusu_tiyatro_kategori" FromRole="Tiyatro_Konusu" ToRole="tiyatro_kategori" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uyeler">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="Int32" Nullable="false" />
+          <Property Name="UyeAdi" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UyeSoyadi" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UyeTc" Type="String" MaxLength="150" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UyeTel" Type="String" MaxLength="150" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UyeAdres" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tiyatro_Sahne_Turu">
+          <End Role="Sahne_Turu" Type="Self.Sahne_Turu" Multiplicity="1" />
+          <End Role="Tiyatro" Type="Self.Tiyatro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sahne_Turu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tiyatro">
+              <PropertyRef Name="sahne_turu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tiyatro_tiyatro_kategori">
+          <End Role="tiyatro_kategori" Type="Self.tiyatro_kategori" Multiplicity="1" />
+          <End Role="Tiyatro" Type="Self.Tiyatro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiyatro_kategori">
+              <PropertyRef Name="kategoriId" />
+            </Principal>
+            <Dependent Role="Tiyatro">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tiyatro_Tiyatro_Konusu">
+          <End Role="Tiyatro_Konusu" Type="Self.Tiyatro_Konusu" Multiplicity="1" />
+          <End Role="Tiyatro" Type="Self.Tiyatro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tiyatro_Konusu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tiyatro">
+              <PropertyRef Name="tiyatro_konu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tiyatro_Konusu_tiyatro_kategori">
+          <End Role="tiyatro_kategori" Type="Self.tiyatro_kategori" Multiplicity="1" />
+          <End Role="Tiyatro_Konusu" Type="Self.Tiyatro_Konusu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiyatro_kategori">
+              <PropertyRef Name="kategoriId" />
+            </Principal>
+            <Dependent Role="Tiyatro_Konusu">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TiyatroEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Sahne_Turu" EntityType="Self.Sahne_Turu" />
+          <EntitySet Name="Tiyatro" EntityType="Self.Tiyatro" />
+          <EntitySet Name="tiyatro_kategori" EntityType="Self.tiyatro_kategori" />
+          <EntitySet Name="Tiyatro_Konusu" EntityType="Self.Tiyatro_Konusu" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" />
+          <EntitySet Name="Uyeler" EntityType="Self.Uyeler" />
+          <AssociationSet Name="FK_Tiyatro_Sahne_Turu" Association="Self.FK_Tiyatro_Sahne_Turu">
+            <End Role="Sahne_Turu" EntitySet="Sahne_Turu" />
+            <End Role="Tiyatro" EntitySet="Tiyatro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tiyatro_tiyatro_kategori" Association="Self.FK_Tiyatro_tiyatro_kategori">
+            <End Role="tiyatro_kategori" EntitySet="tiyatro_kategori" />
+            <End Role="Tiyatro" EntitySet="Tiyatro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tiyatro_Tiyatro_Konusu" Association="Self.FK_Tiyatro_Tiyatro_Konusu">
+            <End Role="Tiyatro_Konusu" EntitySet="Tiyatro_Konusu" />
+            <End Role="Tiyatro" EntitySet="Tiyatro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tiyatro_Konusu_tiyatro_kategori" Association="Self.FK_Tiyatro_Konusu_tiyatro_kategori">
+            <End Role="tiyatro_kategori" EntitySet="tiyatro_kategori" />
+            <End Role="Tiyatro_Konusu" EntitySet="Tiyatro_Konusu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TiyatroModelStoreContainer" CdmEntityContainer="TiyatroEntities2">
+          <EntitySetMapping Name="Sahne_Turu">
+            <EntityTypeMapping TypeName="TiyatroModel.Sahne_Turu">
+              <MappingFragment StoreEntitySet="Sahne_Turu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="sahne_türü" ColumnName="sahne_türü" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tiyatro">
+            <EntityTypeMapping TypeName="TiyatroModel.Tiyatro">
+              <MappingFragment StoreEntitySet="Tiyatro">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+                <ScalarProperty Name="tiyatro_konu" ColumnName="tiyatro_konu" />
+                <ScalarProperty Name="sahne_turu" ColumnName="sahne_turu" />
+                <ScalarProperty Name="aciklama" ColumnName="aciklama" />
+                <ScalarProperty Name="fiyat" ColumnName="fiyat" />
+                <ScalarProperty Name="tiyatro_adi" ColumnName="tiyatro_adi" />
+                <ScalarProperty Name="seans_saati" ColumnName="seans_saati" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tiyatro_kategori">
+            <EntityTypeMapping TypeName="TiyatroModel.tiyatro_kategori">
+              <MappingFragment StoreEntitySet="tiyatro_kategori">
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+                <ScalarProperty Name="kategoriAdi" ColumnName="kategoriAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tiyatro_Konusu">
+            <EntityTypeMapping TypeName="TiyatroModel.Tiyatro_Konusu">
+              <MappingFragment StoreEntitySet="Tiyatro_Konusu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+                <ScalarProperty Name="konu" ColumnName="konu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfile">
+            <EntityTypeMapping TypeName="TiyatroModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uyeler">
+            <EntityTypeMapping TypeName="TiyatroModel.Uyeler">
+              <MappingFragment StoreEntitySet="Uyeler">
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+                <ScalarProperty Name="UyeAdi" ColumnName="UyeAdi" />
+                <ScalarProperty Name="UyeSoyadi" ColumnName="UyeSoyadi" />
+                <ScalarProperty Name="UyeTc" ColumnName="UyeTc" />
+                <ScalarProperty Name="UyeTel" ColumnName="UyeTel" />
+                <ScalarProperty Name="UyeAdres" ColumnName="UyeAdres" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

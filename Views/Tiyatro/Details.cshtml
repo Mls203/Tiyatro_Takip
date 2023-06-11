@@ -1,0 +1,99 @@
+﻿@model Tiyatro_Takip.Models.Tiyatro
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <style>
+        a  {
+            text-decoration: none;
+        }
+    </style>
+
+    <script src="~/Scripts/jquery-3.6.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container " style="margin-top:50px;">
+        <div>
+
+
+            <dl class="dl-horizontal">
+                <dt style="padding:4px;">
+                    @Html.DisplayNameFor(model => model.aciklama)
+                </dt>
+
+                <dd style="padding:4px;">
+                    @Html.DisplayFor(model => model.aciklama)
+                </dd>
+
+                <dt style="padding:4px;">
+                    @Html.DisplayNameFor(model => model.fiyat)
+                </dt>
+
+                <dd style="padding:4px;">
+                    @Html.DisplayFor(model => model.fiyat)
+                </dd>
+
+                <dt style="padding:4px;">
+                    @Html.DisplayNameFor(model => model.Sahne_Turu1.sahne_türü)
+                </dt>
+
+                <dd style="padding:4px;">
+                    @Html.DisplayFor(model => model.Sahne_Turu1.sahne_türü)
+                </dd>
+
+                <dt style="padding:4px;">
+                    @Html.DisplayNameFor(model => model.tiyatro_kategori.kategoriAdi)
+                </dt>
+
+                <dd style="padding:4px;">
+                    @Html.DisplayFor(model => model.tiyatro_kategori.kategoriAdi)
+                </dd>
+
+                <dt style="padding:4px;">
+                    @Html.DisplayNameFor(model => model.Tiyatro_Konusu.konu)
+                </dt>
+
+                <dd style="padding:4px;">
+                    @Html.DisplayFor(model => model.Tiyatro_Konusu.konu)
+                </dd>
+                <dt style="padding:4px;">
+                    @Html.DisplayNameFor(model => model.tiyatro_adi)
+                </dt>
+
+                <dd style="padding:4px;">
+                    @Html.DisplayFor(model => model.tiyatro_adi)
+                </dd>
+
+                <dt style="padding:4px;">
+                    @Html.DisplayNameFor(model => model.seans_saati)
+                </dt>
+
+                <dd style="padding:4px;">
+                    @Html.DisplayFor(model => model.seans_saati)
+                </dd>
+
+            </dl>
+        </div>
+        <p style="margin-left:70px; margin-top:5px;">
+            @Html.ActionLink("Düzenle", "Edit","Tiyatro" ,new { id = Model.Id }, htmlAttributes: new { style = "text-decoration:none" }) &nbsp;&nbsp;
+            @Html.ActionLink("Ana Sayfa", "Anasayfa","Home")
+        </p>
+    </div>
+</body>
+</html>

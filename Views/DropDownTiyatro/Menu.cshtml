@@ -1,0 +1,67 @@
+﻿@model  Tiyatro_Takip.Models.DropdownTiyatroBaglanti
+
+<style>
+    #deneme {
+        margin-top: 50px;
+        color: antiquewhite;
+        border: 5px solid hidden;
+    }
+
+    #dıs {
+        position: absolute;
+    }
+</style>
+@section scripts
+{
+    
+        <div class="row" display="flex" style="margin-left:700px" id="dıs">
+            <div class="container,col-md-4" style="Width:280px">
+                <div class="form-group" id="deneme">
+
+                    @Html.DropDownListFor(Model => Model.kategoriId, Model.KategoriList, "...Kategori Şeciniz", new { @class = "form-control" })
+
+                </div>
+            </div>
+
+
+            <div class="container,col-md-4" style="Width:280px">
+                <div class="form-group" id="deneme">
+
+                    @Html.DropDownListFor(Model => Model.Id, new SelectList(" "), "...Tiyatro Konu Listesi", new { @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+    
+
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#kategoriId").change(function () {
+
+            var id = $(this).val();
+            var KonuList = document.getElementsByName("Id");
+            
+            $.ajax({
+
+                url: '/DropdownTiyatroBaglanti/GetKonuList',
+                type: 'POST',
+                dataType: 'json',
+                data: { 'id': id },
+                success: function (data) {
+                    $(AletList).children().remove();
+                    for (let i = 0; i < data.length; i++) {
+                        $(AletList).append('<option value=' + data[i].Value + '>' + data[i].Text + '</option>');
+                        console.log(data[i].Text);
+                    }
+                }
+
+            });
+        });
+
+    });
+
+</script>
+

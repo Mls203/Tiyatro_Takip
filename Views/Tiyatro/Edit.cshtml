@@ -1,0 +1,118 @@
+﻿@model Tiyatro_Takip.Models.Tiyatro
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <style>
+        a .hover{
+            text-decoration:none;
+        }
+    </style>
+   
+    <script src="~/Scripts/jquery-3.6.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container " style="margin-top:50px;">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+
+
+                @Html.LabelFor(model => model.kategoriId, "kategoriId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.DropDownList("kategoriId", new SelectList(ViewBag.tiyatroKategori, "Value", "Text"), "Kategori Seçiniz...", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.kategoriId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.tiyatro_konu, "tiyatro_konu", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+
+                    @Html.DropDownList("tiyatro_konu", new SelectList(ViewBag.tiyatroKonu, "Value", "Text"), "tiyatro konu Seçiniz..", new { @class = "form-control" })
+
+
+                    @Html.ValidationMessageFor(model => model.tiyatro_konu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.sahne_turu, "sahne_turu", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.DropDownList("sahne_turu", new SelectList(ViewBag.sahnetürü, "Value", "Text"), "Sahne turu Seçiniz..", new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.sahne_turu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.aciklama, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.aciklama, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.aciklama, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.seans_saati, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.seans_saati, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.seans_saati, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.tiyatro_adi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.tiyatro_adi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.tiyatro_adi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.fiyat, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fiyat, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fiyat, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Güncelle" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+        }
+
+        <div style="margin-left:195px;">
+            @Html.ActionLink("Listeye Geri Dön", "TiyatroKategori", new { tiyatro_konu_id =Model.tiyatro_konu }@*htmlAttributes: new {style="text-decoration:none"}*@)
+        </div>
+
+    </div>
+</body>
+</html>
